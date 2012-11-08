@@ -36,8 +36,8 @@ class Player(object):
 			map.add_obj(pos, GoldLoss())
 			
 		if self.gold <= 0:
-			print 'Game Over'
-			print 'You are poor!'
+			print('Game Over')
+			print('You are poor!')
 			#pygame.quit()
 			pygame.event.post(pygame.event.Event(pygame.QUIT, {}))
 		

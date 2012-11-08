@@ -45,10 +45,10 @@ class Game(object):
 		delta = float(self.clock.tick(self.fps)) / 1000
 		
 		self.map.objs_lock = True
-		for pos, objs in self.map.objs.iteritems():
+		for pos, objs in self.map.objs.items():
 			for obj in objs:
 				obj.update(delta)
-		self.map.objs = {k: [x for x in self.map.objs[k] if x.delete == False] for k in self.map.objs.iterkeys()}
+		self.map.objs = {k: [x for x in self.map.objs[k] if x.delete == False] for k in self.map.objs.keys()}
 		self.map.objs_lock = False
 		
 		self.map.merge_objs()
@@ -109,10 +109,10 @@ class Game(object):
 			self.map.objs[self.map.player_xy][:] = [x for x in self.map.objs[self.map.player_xy] if x.delete == False]
 			
 		self.map.objs_lock = True
-		for pos, objs in self.map.objs.iteritems():
+		for pos, objs in self.map.objs.items():
 			for obj in objs:
 				obj.step(pos, self.map, self.player)
-		self.map.objs = {k: [x for x in self.map.objs[k] if x.delete == False] for k in self.map.objs.iterkeys()}
+		self.map.objs = {k: [x for x in self.map.objs[k] if x.delete == False] for k in self.map.objs.keys()}
 		self.map.objs_lock = False
 		
 		self.player.lust += 1

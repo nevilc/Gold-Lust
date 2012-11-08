@@ -3,7 +3,7 @@ import random
 
 def merge_dict(d1, d2):
 	assert(d1 != d2)
-	for k, v in d2.iteritems():
+	for k, v in d2.items():
 		if k in d1:
 			d1[k].extend(v)
 		else:

@@ -96,12 +96,12 @@ class Room(object):
 		self.generate(type)
 	
 	def fill(self, tile):
-		self.tile[self.w / 2][self.h / 2] = tile_null
+		self.tile[int(self.w / 2)][int(self.h / 2)] = tile_null
 		self.subfill(tile, (self.w / 2, self.h / 2))
 		
 	def subfill(self, tile, pos):
-		x = pos[0]
-		y = pos[1]
+		x = int(pos[0])
+		y = int(pos[1])
 		if x < 0 or y < 0 or x >= self.w or y >= self.h or self.tile[x][y] != tile_null:
 			return
 		
@@ -256,7 +256,7 @@ class Map(object):
 			for y in range(room.h):
 				self.tile[pos[0] + x][pos[1] + y] = room.tile[x][y]
 				#self.obj[pos[0] + x][pos[1] + y].extend(room.tile[x][y])
-		objs_new = {(k[0] + pos[0], k[1] + pos[1]): v for k, v in room.objs.iteritems()}
+		objs_new = {(k[0] + pos[0], k[1] + pos[1]): v for k, v in room.objs.items()}
 		self.objs = merge_dict(self.objs, objs_new)
 				
 		self.rooms.append((pos, room))
@@ -363,7 +363,7 @@ class Map(object):
 	
 	def merge_objs(self):
 		if self.objs_lock:
-			print 'objs_lock error'
+			print('objs_lock error')
 		else:
 			self.objs = merge_dict(self.objs, self.objs_temp)
 			self.objs_temp = {}
@@ -381,14 +381,14 @@ class Map(object):
 				self.objs[pos] = [obj]
 			
 	def move_obj(self, pos, obj):
-		self.objs = {k: [x for x in self.objs[k] if x != obj] for k in self.objs.iterkeys()}
+		self.objs = {k: [x for x in self.objs[k] if x != obj] for k in self.objs.keys()}
 		self.add_obj(pos, obj)
 	
 	def draw(self, surface, offset):
 		for x in range(self.w):
 			for y in range(self.h):
 				self.tile[x][y].draw(surface, addt(offset, (x * self.tile_size, y * self.tile_size)))
-		for pos, objs in self.objs.iteritems():
+		for pos, objs in self.objs.items():
 			for obj in objs:
 				obj.draw(surface, (pos[0] * self.tile_size, pos[1] * self.tile_size))
 			
